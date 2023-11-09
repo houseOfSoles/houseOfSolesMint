@@ -92,7 +92,7 @@
       font-family: 'Noa Pro Condensed', sans-serif;
       font-weight: bold;
       text-shadow: 0px 0px 10px rgba(255, 255, 255, 1);
-      animation: blink 1s infinite; 
+/*       animation: blink 1s infinite;  */
     }
     
     
@@ -131,13 +131,13 @@
       justify-content: center;
       align-items: center;
       flex-direction: column;
+      animation: glitch-borderC 0.5s linear infinite
     }
     
     button {
       text-decoration: none;
       padding: 10px 20px;
       font-size: 20px;
-      color: cyan;
       background-color: #333333;
       border: 2px solid cyan; 
       border-radius: 6px;
@@ -145,6 +145,7 @@
       transition: background-color 0.3s, transform 0.3s ease, border 0.3s ease; 
       position: relative;
       z-index: 1;
+      color: cyan;
       font-family: 'Noa Pro Condensed', sans-serif;
       text-shadow: 0px 0px 10px rgba(255, 255, 255, 1);
       box-shadow: 0px 0px 10px cyan;
@@ -155,6 +156,15 @@
     @keyframes glitch-border {
       0%, 100% {
         border: 2px solid cyan; 
+      }
+      5%, 25%, 50%, 75%, 95% {
+        border: 2px solid transparent; 
+      }
+    }
+    
+    @keyframes glitch-borderC {
+      0%, 100% {
+        border: 2px solid white; 
       }
       5%, 25%, 50%, 75%, 95% {
         border: 2px solid transparent; 
@@ -567,18 +577,23 @@
       flex-wrap: wrap;
       
       
+      
     }
 
     .grid-block {
       width: 20%;
       min-height: 11.25rem;
       padding: 1rem;
+      animation: glitch-border 0.5s linear infinite;
+
+/*       animation: glitch-border 0.5s linear infinite;
+      animation: wobble-horizontal 0.5s linear infinite; */
       
     }
 
     .image-grid {
       -webkit-transform: rotateX(45deg) rotateZ(45deg);
-      transform: rotateX(45deg) rotateZ(45deg);
+      transform: rotateX(0deg) rotateZ(0deg);
       -webkit-perspective: 1000px;
       perspective: 1000px;
       
@@ -757,6 +772,49 @@
         height: 17px;
       }
     }
+    
+    .center {
+      text-align: center;
+    }
+    
+    
+    .parallel-text{
+      font-size:15vw;
+      font-family: 'Montserrat', sans-serif;
+      font-weight:800;
+      font-style: italic;
+      position: absolute;
+      place-items:center;
+      text-align: center;
+      height:100vh;
+      left:50vh;
+      color: cyan;
+      font-family: 'Noa Pro Condensed', sans-serif;
+/*       text-shadow: 0px 0px 10px rgba(255, 255, 255, 1); */
+/*       position:relative; */
+    }
+    .parallel-text::after{
+      content:attr(text);
+      position:absolute;
+      z-index:100;
+      top:0;
+      left:0;
+      color:transparent;
+         -webkit-text-stroke: 0.15vw black;
+    }
+    img.img1 {
+      width:40vw;
+      animation:sneaker 2s cubic-bezier(0.25, 1, 0.5,1) infinite alternate
+    }
+
+    @keyframes sneaker{
+      0% , 10% {
+        transform: translate(50vw, 0) rotate(15deg)
+      }
+       90%, 100% {
+        transform: translate(-5vw, -5vw) rotate(-30deg)
+      }
+    }
 
 
 
@@ -833,7 +891,7 @@
     <br>
     <br>
     
-    <button id="mintButton">Mint</button>
+    <button id="mintButton">Mint HoS</button>
     
     <br>
     <br>
@@ -940,17 +998,15 @@
     </div>
   </div>
 
-  <div class="grid-block">
-    <div class="tile">
-      <a class="tile-link">
-        <img class="tile-img tile-img9" src="https://ipfs.io/ipfs/bafybeigmzl6v7k3von62m7kaivq3ngdacpizfk4elpjr4gdfqd3vmceuki/11.png" alt="Image">
-      </a>
-    </div>
+  <img class="img1" src="https://cdn.glitch.global/1c8d5553-7a95-4e0e-9276-868063e7dd0e/footer.png?v=1699527710750">
+    
   </div>
   
+  <div class="center">
+    <img src="https://cdn.glitch.global/1c8d5553-7a95-4e0e-9276-868063e7dd0e/logo.png?v=1699480659527" alt="Logo" width="250" height="250"> 
+    
+  </div>
   
-  <img src="https://cdn.glitch.global/1c8d5553-7a95-4e0e-9276-868063e7dd0e/logo.png?v=1699480659527" alt="Logo" width="250" height="250"> 
-</div>
 
   <script>
     const mintButton = document.getElementById('mintButton');
