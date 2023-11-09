@@ -800,7 +800,7 @@
       top:0;
       left:0;
       color:transparent;
-         -webkit-text-stroke: 0.15vw black;
+      -webkit-text-stroke: 0.15vw black;
     }
     img.img1 {
       width:40vw;
@@ -814,6 +814,28 @@
        90%, 100% {
         transform: translate(-5vw, -5vw) rotate(-30deg)
       }
+    }
+    
+    .parallax-container {
+      background-image: url('your-background-image.jpg'); /* Replace with your image URL */
+      background-size: cover;
+      background-attachment: fixed;
+      background-position: center;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      text-align: center;
+      font-size: 12px;
+      
+    }
+
+    .parallax-text {
+      max-width: 800px;
+      margin: 0 auto;
+      font-size: 20px;
+      color: cyan;
     }
 
 
@@ -999,7 +1021,15 @@
   </div>
     
   </div>
-
+  
+  
+  <div class="parallax-container">
+    <div class="parallax-text">
+      <p class="parallax-text">• A level 69 Sneaker Alchemist, wielding an expertise in cutting-edge green-magic technology for footwear evolution.</p><br><br>
+      <p class="parallax-text">• Pioneering the Sneaker Renaissance, fusing futuristic design principles to herald the next era in sneaker sophistication.</p><br><br>
+      <p class="parallax-text">• Holder of a Doctorate, specializing in the avant-garde field of sneaker innovation, pushing the boundaries of design and functionality into the realms of tomorrow.</p><br><br>
+    </div>
+  </div>
   
   
   <div class="center">
