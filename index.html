@@ -1,1 +1,967 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>House Of Soles</title>
+  <link rel="icon" href="https://cdn.glitch.global/1c8d5553-7a95-4e0e-9276-868063e7dd0e/logo.png?v=1699480659527" type="image/svg+xml">
+  <style>
+    body {
+      background-image: url('https://cdn.glitch.global/1c8d5553-7a95-4e0e-9276-868063e7dd0e/42-bg1.jpeg?v=1699491304260');
+      background-size: cover;
+      background-repeat: repeat;
+      background-position: center;
+      margin: 0;
+      padding: 0;
+    }
 
+    @keyframes cursor {
+      from, to { border-color: transparent; }
+      50% { border-color: cyan; }
+    }
+
+    @keyframes typing {
+      from { width: 100%; }
+      90%, to { width: 0; }
+    }
+
+    @keyframes slide {
+      #{100% / 3} { font-size: 3rem; letter-spacing: 3px; }
+      to { font-size: 0; letter-spacing: 0; }
+    }
+
+    .#{typing-slider} {
+      font-family: Consolas, monospace;
+      font-weight: bold;
+      text-align: center;
+      white-space: nowrap;
+    }
+
+    .#{typing-slider} p {
+      position: relative;
+      display: inline;
+      font-size: 0;
+      text-transform: uppercase;
+      letter-spacing: 0;
+      animation: slide 5s * 3 step-start infinite;
+      
+      color: cyan;
+      font-size: 15px;
+      transition: color 0.4s;
+      font-family: 'Noa Pro Condensed', sans-serif;
+      font-weight: bold;
+      
+    }
+
+    .#{typing-slider} p::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      border-left: 3px solid black;
+      background-color: #FFCC00;
+      animation: typing 5s infinite,
+                 cursor 1s infinite;
+    }
+
+    @each $letters in $tab-letters {
+      $i: index($tab-letters, $letters);
+      .#{typing-slider} p:nth-child(#{$i}) {
+        animation-delay:  5s * ($i - 1);
+        &::after {
+          animation-delay: 5s * ($i - 1);
+          animation-timing-function: steps(#{$letters}), step-end;
+        }
+      }
+    }
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px;
+    }
+
+    .logo {
+      margin: 0;
+      padding: 0;
+      color: cyan;
+      font-size: 35px;
+      transition: color 0.4s;
+      font-family: 'Noa Pro Condensed', sans-serif;
+      font-weight: bold;
+      text-shadow: 0px 0px 10px rgba(255, 255, 255, 1);
+      animation: blink 1s infinite; 
+    }
+    
+    
+    
+
+    .logo1 {
+      margin: 0;
+      padding: 0;
+      color: cyan;
+      font-size: 15px;
+      transition: color 0.4s;
+      font-family: 'Noa Pro Condensed', sans-serif;
+      font-weight: bold;
+      text-shadow: 0px 0px 10px rgba(255, 255, 255, 1);
+      animation: blink 1s infinite; 
+    }
+    
+    @keyframes blink {
+      50% {
+        color: transparent; 
+      }
+    }
+
+    .logo img {
+      display: block;
+      max-width: 50px;
+    }
+
+    .container {
+      background-color: transparent;
+      border: 5px solid #FFFFFF;
+      box-shadow: 0 0 10px cyan;
+      padding: 20px;
+      margin: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+    }
+    
+    button {
+      text-decoration: none;
+      padding: 10px 20px;
+      font-size: 20px;
+      color: cyan;
+      background-color: #333333;
+      border: 2px solid cyan; 
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background-color 0.3s, transform 0.3s ease, border 0.3s ease; 
+      position: relative;
+      z-index: 1;
+      font-family: 'Noa Pro Condensed', sans-serif;
+      text-shadow: 0px 0px 10px rgba(255, 255, 255, 1);
+      box-shadow: 0px 0px 10px cyan;
+      margin-top: 20px;
+      animation: glitch-border 0.1s linear infinite;
+    }
+
+    @keyframes glitch-border {
+      0%, 100% {
+        border: 2px solid cyan; 
+      }
+      5%, 25%, 50%, 75%, 95% {
+        border: 2px solid transparent; 
+      }
+    }
+
+    
+    button:hover {
+      animation: glitch-border 0.5s linear infinite;
+    }
+    
+    
+    @keyframes wobble-horizontal {
+      16.65% {
+        transform: translateX(8px);
+      }
+
+      33.3% {
+        transform: translateX(-6px);
+      }
+
+      49.95% {
+        transform: translateX(4px);
+      }
+
+      66.6% {
+        transform: translateX(-2px);
+      }
+
+      83.25% {
+        transform: translateX(1px);
+      }
+
+      100% {
+        transform: translateX(0);
+      }
+    }
+
+    .wobble-horizontal {
+      display: inline-block;
+
+      @include hideTapHighlightColor();
+      @include hardwareAccel();
+      @include improveAntiAlias();
+
+      &:hover {
+        animation-name: wobble-horizontal;
+        animation-duration: 1s;
+        animation-timing-function: ease-in-out;
+        animation-iteration-count: 1;
+      }
+    }
+    
+/*     .gallery {
+      --s: 250px; 
+
+      display: grid;
+      transform-style: preserve-3d;
+      animation: r 15s linear infinite;
+      position: relative;
+      
+    }
+    @keyframes r {
+      0% {transform: perspective(450px) rotateX(-100deg) rotate(0deg)}
+      to {transform: perspective(450px) rotateX(-100deg) rotate(-360deg)}
+    }
+    .gallery > img {
+      grid-area: 1/1;
+      width: var(--s);
+      aspect-ratio: 1;
+      object-fit: cover;
+      border-radius: 10px 10px 0 0;
+      transform: rotate(var(--_a)) translateY(120%) rotateX(90deg);
+      box-shadow: 0 0 10px cyan;
+    }
+    .gallery > img:nth-child(1) {--_a: 0deg}
+    .gallery > img:nth-child(2) {--_a: 60deg}
+    .gallery > img:nth-child(3) {--_a: 120deg}
+    .gallery > img:nth-child(4) {--_a: 180deg}
+    .gallery > img:nth-child(5) {--_a: 240deg}
+    .gallery > img:nth-child(6) {--_a: 300deg}
+ */
+    
+    
+/*     #drag-container, #spin-container {
+      position: relative;
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: flex;
+      margin: auto;
+      -webkit-transform-style: preserve-3d;
+              transform-style: preserve-3d;
+      -webkit-transform: rotateX(-10deg);
+              transform: rotateX(-10deg);
+      
+    }
+
+    #drag-container img, #drag-container video {
+      -webkit-transform-style: preserve-3d;
+              transform-style: preserve-3d;
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      line-height: 200px;
+      font-size: 50px;
+      text-align: center;
+      box-shadow: 0 0 8px #fff;
+      -webkit-box-reflect: below 10px linear-gradient(transparent, transparent, #0005);
+    }
+
+    #drag-container img:hover, #drag-container video:hover {
+       box-shadow: 0 0 15px #fffd;
+      -webkit-box-reflect: below 10px linear-gradient(transparent, transparent, #0007);
+    }
+
+    #drag-container p {
+      font-family: Serif;
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      transform: translate(-50%,-50%) rotateX(90deg);
+      color: #fff;
+    }
+
+    #ground {
+      width: 900px;
+      height: 900px;
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      transform: translate(-50%,-50%) rotateX(90deg);
+      background: -webkit-radial-gradient(center center, farthest-side , #9993, transparent);
+    } */
+
+
+/*     @keyframes spin {
+      from{
+           transform: rotateY(0deg);
+         } 
+      to{
+           transform: rotateY(360deg);
+      }
+    }
+
+    @keyframes spinRevert {
+      from{
+             transform: rotateY(360deg);
+      } 
+
+      to{
+          transform: rotateY(0deg);
+      }
+    } */
+    
+    .box {
+      top: 280px;
+      left: 30%;
+      width: 500px;
+      height: 500px;
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      position: absolute;
+      margin-left: 6%;
+      margin-right: 30%;
+      -webkit-transform-style: preserve-3d;
+      -webkit-transform: rotateX(13deg);
+      -webkit-animation: move 5s linear infinite;
+    }
+
+    .minbox {
+      width: 100px;
+      height: 100px;
+      position: absolute;
+      left: 50px;
+      top: 30px;
+      -webkit-transform-style: preserve-3d;
+    }
+
+    .minbox li {
+      width: 100px;
+      height: 100px;
+      position: absolute;
+      left: 0;
+      top: 0;
+    }
+
+    .minbox li:nth-child(1){
+      background: url(https://ipfs.io/ipfs/bafybeicpw6txk26oxwhc3dp7h3xwn4jeczrc64y3nvehq6mcoflqmyr3hq/9.png) no-repeat 0 0;
+      background-size: cover; 
+      -webkit-transform: translateZ(50px);
+    }
+
+    .minbox li:nth-child(2){
+      background: url(https://ipfs.io/ipfs/bafybeicpw6txk26oxwhc3dp7h3xwn4jeczrc64y3nvehq6mcoflqmyr3hq/14.png) no-repeat 0 0;
+      background-size: cover; 
+      -webkit-transform: rotateX(180deg) translateZ(50px);
+    }
+
+    .minbox li:nth-child(3){
+      background: url(https://ipfs.io/ipfs/bafybeicpw6txk26oxwhc3dp7h3xwn4jeczrc64y3nvehq6mcoflqmyr3hq/28.png) no-repeat 0 0;
+      background-size: cover; 
+      -webkit-transform: rotateX(-90deg) translateZ(50px);
+    }
+
+    .minbox li:nth-child(4){
+      background: url(https://ipfs.io/ipfs/bafybeicpw6txk26oxwhc3dp7h3xwn4jeczrc64y3nvehq6mcoflqmyr3hq/64.png) no-repeat 0 0;
+      background-size: cover; 
+      -webkit-transform: rotateX(90deg) translateZ(50px);
+    }
+
+    .minbox li:nth-child(5){
+      background: url(https://ipfs.io/ipfs/bafybeicpw6txk26oxwhc3dp7h3xwn4jeczrc64y3nvehq6mcoflqmyr3hq/221.png) no-repeat 0 0;
+      background-size: cover; 
+      -webkit-transform: rotateY(-90deg) translateZ(50px);
+    }
+
+    .minbox li:nth-child(6){
+      background: url(https://ipfs.io/ipfs/bafybeicpw6txk26oxwhc3dp7h3xwn4jeczrc64y3nvehq6mcoflqmyr3hq/267.png) no-repeat 0 0;
+      background-size: cover; 
+      -webkit-transform: rotateY(90deg) translateZ(50px);
+    }
+
+    .maxbox li:nth-child(1){
+      background: url(https://ipfs.io/ipfs/bafybeicpw6txk26oxwhc3dp7h3xwn4jeczrc64y3nvehq6mcoflqmyr3hq/9.png) no-repeat 0 0;
+      background-size: cover; 
+      -webkit-transform: translateZ(50px);
+    }
+
+    .maxbox li:nth-child(2){
+      background: url(https://ipfs.io/ipfs/bafybeicpw6txk26oxwhc3dp7h3xwn4jeczrc64y3nvehq6mcoflqmyr3hq/14.png) no-repeat 0 0;
+      background-size: cover; 
+      -webkit-transform: rotateX(180deg) translateZ(50px);
+    }
+
+    .maxbox li:nth-child(3){
+      background: url(https://ipfs.io/ipfs/bafybeicpw6txk26oxwhc3dp7h3xwn4jeczrc64y3nvehq6mcoflqmyr3hq/28.png) no-repeat 0 0;
+      background-size: cover; 
+      -webkit-transform: rotateX(-90deg) translateZ(50px);
+    }
+
+    .maxbox li:nth-child(4){
+      background: url(https://ipfs.io/ipfs/bafybeicpw6txk26oxwhc3dp7h3xwn4jeczrc64y3nvehq6mcoflqmyr3hq/64.png) no-repeat 0 0;
+      background-size: cover; 
+      -webkit-transform: rotateX(90deg) translateZ(50px);
+    }
+
+    .maxbox li:nth-child(5){
+      background: url(https://ipfs.io/ipfs/bafybeicpw6txk26oxwhc3dp7h3xwn4jeczrc64y3nvehq6mcoflqmyr3hq/221.png) no-repeat 0 0;
+      background-size: cover; 
+      -webkit-transform: rotateX(-90deg) translateZ(50px);
+    }
+
+    .maxbox li:nth-child(6){
+      background: url(https://ipfs.io/ipfs/bafybeicpw6txk26oxwhc3dp7h3xwn4jeczrc64y3nvehq6mcoflqmyr3hq/267.png) no-repeat 0 0;
+      background-size: cover; 
+      -webkit-transform: rotateX(90deg) translateZ(50px);
+    }
+
+    .maxbox {
+        width: 800px;
+        height: 400px;
+        position: absolute;
+        left: 0;
+        top: -150px;
+        -webkit-transform-style: preserve-3d;
+    }
+
+    .maxbox li {
+        width: 200px;
+        height: 500px;
+        background: #fff;
+        border: 1px solid #ccc;
+        position: absolute;
+        left: 0;
+        top: 0;
+        opacity: 0.3;
+        -webkit-transition: all 1.2s ease;
+    }
+
+    .maxbox li:nth-child(1){
+      -webkit-transform: translateZ(100px);
+    }
+
+    .maxbox li:nth-child(2){
+      -webkit-transform: rotateX(180deg) translateZ(100px);
+    }
+
+    .maxbox li:nth-child(3){
+      -webkit-transform: rotateX(-90deg) translateZ(100px);
+    }
+
+    .maxbox li:nth-child(4){
+      -webkit-transform: rotateX(90deg) translateZ(100px);
+    }
+
+    .maxbox li:nth-child(5){
+      -webkit-transform: rotateY(-90deg) translateZ(100px);
+    }
+
+    .maxbox li:nth-child(6){
+      -webkit-transform: rotateY(90deg) translateZ(100px);
+    }
+
+    .box:hover ol li:nth-child(1){
+      -webkit-transform: translateZ(300px);
+      width: 400px;
+      height: 400px;
+      opacity: 0.8;
+      left: -100px;
+      top: -100px;
+    }
+
+    .box:hover ol li:nth-child(2){
+      -webkit-transform: rotateX(180deg) translateZ(300px);
+      width: 400px;
+      height: 400px;
+      opacity: 0.8;
+      left: -100px;
+      top: -100px;
+    }
+
+    .box:hover ol li:nth-child(3){
+      -webkit-transform: rotateX(-90deg) translateZ(300px);
+      width: 400px;
+      height: 400px;
+      opacity: 0.8;
+      left: -100px;
+      top: -100px;
+    }
+
+    .box:hover ol li:nth-child(4){
+      -webkit-transform: rotateX(90deg) translateZ(300px);
+      width: 400px;
+      height: 400px;
+      opacity: 0.8;
+      left: -100px;
+      top: -100px;
+    }
+
+    .box:hover ol li:nth-child(5){
+      -webkit-transform: rotateY(-90deg) translateZ(300px);
+      width: 400px;
+      height: 400px;
+      opacity: 0.8;
+      left: -100px;
+      top: -100px;
+    }
+
+    .box:hover ol li:nth-child(6){
+      -webkit-transform: rotateY(90deg) translateZ(300px);
+      width: 400px;
+      height: 400px;
+      opacity: 0.8;
+      left: -100px;
+      top: -100px;
+    }
+
+    @keyframes move{
+      0%{
+        -webkit-transform: rotateX(13deg) rotateY(0deg);
+      }
+      100%{
+        -webkit-transform: rotateX(13deg) rotateY(360deg);
+      }
+  }
+    
+  .t-container{
+      position: absolute;
+      top: 0;
+      left: 0;
+      .t-content{
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 400px;
+        height: 225px;
+        img{
+          position: absolute;
+
+          width: 400px;
+          height: 225px;
+        }
+
+        .cover{
+          position: absolute;
+          top: 0;
+          left: 0;
+
+          background-color: rgba(0, 0, 0, .75);
+
+          width: 400px;
+          height: 225px;
+        }
+      }
+    }
+
+    .grid {
+      width: 100%;
+      max-width: 60rem;
+      margin-left: auto;
+      margin-right: auto;
+
+      display: flex;
+      -webkit-box-orient: horizontal;
+      -webkit-box-direction: normal;
+      flex-direction: row;
+      flex-wrap: wrap;
+      
+      
+    }
+
+    .grid-block {
+      width: 20%;
+      min-height: 11.25rem;
+      padding: 1rem;
+      
+    }
+
+    .image-grid {
+      -webkit-transform: rotateX(45deg) rotateZ(45deg);
+      transform: rotateX(45deg) rotateZ(45deg);
+      -webkit-perspective: 1000px;
+      perspective: 1000px;
+      
+    }
+
+    .image-grid .tile-link:hover .tile-img {
+      top: -1rem;
+      left: -1rem;
+    }
+
+    .image-grid .tile-img {
+      position: relative;
+      top: 0;
+      left: 0;
+      -webkit-transition-property: opacity, top, left, box-shadow;
+      transition-property: opacity, top, left, box-shadow;
+    }
+
+    .tile-link {
+      display: block;
+    }
+
+    .tile-link:hover .tile-img {
+      opacity: 1;
+    }
+
+    .tile-link:hover .tile-img-link {
+      display: block;
+    }
+
+    .tile-link:hover .tile-img-link:hover .tile-img {
+      opacity: 0.5;
+    }
+
+    .tile-img {
+      display: block;
+      width: 100%;
+      height: auto;
+      opacity: 1;
+      -webkit-transition-property: opacity;
+      transition-property: opacity;
+      -webkit-transition-duration: 0.125s;
+      transition-duration: 0.125s;
+      -webkit-transition-timing-function: ease-in;
+      transition-timing-function: ease-in;
+      cursor: none;
+    }
+    .tile-link:hover .tile-img1 {
+      box-shadow: 5px 5px rgba(244, 170, 200, 0.4),
+        10px 10px rgba(244, 170, 200, 0.3), 15px 15px rgba(244, 170, 200, 0.2),
+        20px 20px rgba(244, 170, 200, 0.1), 25px 25px rgba(244, 170, 200, 0.05);
+    }
+
+    .tile-link:hover .tile-img2 {
+      box-shadow: 5px 5px rgba(45, 186, 233, 0.4), 10px 10px rgba(45, 186, 233, 0.3),
+        15px 15px rgba(45, 186, 233, 0.2), 20px 20px rgba(45, 186, 233, 0.1),
+        25px 25px rgba(45, 186, 233, 0.05);
+    }
+
+    .tile-link:hover .tile-img3 {
+      box-shadow: 5px 5px rgba(214, 221, 244, 0.4),
+        10px 10px rgba(214, 221, 244, 0.3), 15px 15px rgba(214, 221, 244, 0.2),
+        20px 20px rgba(214, 221, 244, 0.1), 25px 25px rgba(214, 221, 244, 0.05);
+    }
+
+    .tile-link:hover .tile-img4 {
+      box-shadow: 5px 5px rgba(82, 119, 192, 0.4), 10px 10px rgba(82, 119, 192, 0.3),
+        15px 15px rgba(82, 119, 192, 0.2), 20px 20px rgba(82, 119, 192, 0.1),
+        25px 25px rgba(82, 119, 192, 0.05);
+    }
+
+    .tile-link:hover .tile-img5 {
+      box-shadow: 5px 5px rgba(188, 97, 129, 0.4), 10px 10px rgba(188, 97, 129, 0.3),
+        15px 15px rgba(188, 97, 129, 0.2), 20px 20px rgba(188, 97, 129, 0.1),
+        25px 25px rgba(188, 97, 129, 0.05);
+    }
+
+    .tile-link:hover .tile-img6 {
+      box-shadow: 5px 5px rgba(203, 215, 193, 0.4),
+        10px 10px rgba(203, 215, 193, 0.3), 15px 15px rgba(203, 215, 193, 0.2),
+        20px 20px rgba(203, 215, 193, 0.1), 25px 25px rgba(203, 215, 193, 0.05);
+    }
+
+    .tile-link:hover .tile-img7 {
+      box-shadow: 5px 5px rgba(91, 209, 250, 0.4), 10px 10px rgba(91, 209, 250, 0.3),
+        15px 15px rgba(91, 209, 250, 0.2), 20px 20px rgba(91, 209, 250, 0.1),
+        25px 25px rgba(91, 209, 250, 0.05);
+    }
+
+    .tile-link:hover .tile-img8 {
+      box-shadow: 5px 5px rgba(145, 156, 196, 0.4),
+        10px 10px rgba(145, 156, 196, 0.3), 15px 15px rgba(145, 156, 196, 0.2),
+        20px 20px rgba(145, 156, 196, 0.1), 25px 25px rgba(145, 156, 196, 0.05);
+    }
+
+    .tile-link:hover .tile-img9 {
+      box-shadow: 5px 5px rgba(138, 218, 245, 0.4),
+        10px 10px rgba(138, 218, 245, 0.3), 15px 15px rgba(138, 218, 245, 0.2),
+        20px 20px rgba(138, 218, 245, 0.1), 25px 25px rgba(138, 218, 245, 0.05);
+    }
+    
+    
+  .ball {
+      position: absolute;
+      top: 0;
+      left: -20px;
+      width: 10px;
+      height: 10px;
+      border-radius: 100%;
+      background: #FF0066;
+      margin-left: -5px;
+      transition-property: left, top;
+      transition-timing-function: cubic-bezier(.25,.1,.25,1), cubic-bezier(.25,.1,.25,1);
+    }
+
+    p {
+      position: relative;
+      margin: 0;
+      display: inline-block;
+      text-align: center;
+      font-size: 40px;
+      outline: none;
+    }
+
+    .word.lit {
+      color: #FF0066;
+      text-shadow: 0px 0px 3px #FF0066;
+    }
+
+
+    .light-switch {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      font-size: 50px;
+      color: #aaa;
+      cursor: pointer;
+
+      &:hover {
+          color: #999;
+        }
+    }
+
+    .hint {
+      width: 350px;
+      height: 30px;
+      font-size: 14px;
+      line-height: 30px;
+      text-align: center;
+      background: #ddd;
+      color: #666;
+      position: absolute;
+      left: 50%;
+      top: -30px;
+      margin-left: -175px;
+      border-bottom-left-radius: 3px;
+      border-bottom-right-radius: 3px;
+      cursor: default;
+
+      &:not(.preload) {
+        transition: top 1s;
+      }
+
+      &.open {
+        top: 0px;
+      }
+
+      & > i {
+        margin: 0 5px;
+        background: #ccc;
+        color: #222;
+        border-radius: 100%;
+        display: inline-block;
+        line-height: 17px;
+        width: 17px;
+        height: 17px;
+      }
+    }
+
+
+
+  </style>
+</head>
+<body>
+  <div class="header">
+    <div class="logo">
+      House of Soles
+    </div>
+ 
+    
+  <div class="logo1">
+      Futuristic
+    </div>
+  </div>
+  
+  
+  
+
+  <div class="container">
+    <br>
+    <br>
+    <br>
+    <br>
+    
+<!--     <div class="gallery">
+      <img src="https://ipfs.io/ipfs/bafybeicpw6txk26oxwhc3dp7h3xwn4jeczrc64y3nvehq6mcoflqmyr3hq/9.png">
+      <img src="https://ipfs.io/ipfs/bafybeicpw6txk26oxwhc3dp7h3xwn4jeczrc64y3nvehq6mcoflqmyr3hq/14.png">
+      <img src="https://ipfs.io/ipfs/bafybeicpw6txk26oxwhc3dp7h3xwn4jeczrc64y3nvehq6mcoflqmyr3hq/28.png">
+      <img src="https://ipfs.io/ipfs/bafybeicpw6txk26oxwhc3dp7h3xwn4jeczrc64y3nvehq6mcoflqmyr3hq/64.png">
+      <img src="https://ipfs.io/ipfs/bafybeicpw6txk26oxwhc3dp7h3xwn4jeczrc64y3nvehq6mcoflqmyr3hq/221.png">
+      <img src="https://ipfs.io/ipfs/bafybeicpw6txk26oxwhc3dp7h3xwn4jeczrc64y3nvehq6mcoflqmyr3hq/267.png">
+      <img src="https://ipfs.io/ipfs/bafybeicpw6txk26oxwhc3dp7h3xwn4jeczrc64y3nvehq6mcoflqmyr3hq/146.png">
+    </div> -->
+    
+  <div class="typing-slider">
+    <p>333</p>
+    <p>Custom Soles.</p>
+    <p>Handcrafted.</p>
+  </div>
+    
+    
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <img src="https://cdn.glitch.global/1c8d5553-7a95-4e0e-9276-868063e7dd0e/logo.png?v=1699480659527" alt="Logo" width="250" height="250"> 
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    
+    <button id="mintButton">Mint</button>
+    
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    
+    <iframe id="mintIframe" style="display: none;" src="https://www.721.so/mint?config=%7B%22contractAddress%22%3A%%22%2C%22background%22%3A%22%23abeaff%22%2C%22cardBackground%22%3A%22%23abeaff%22%2C%22dataSources%22%3A%7B%22price%22%3A%7B%22name%22%3A%22price%22%7D%2C%22saleIsActive%22%3A%7B%22name%22%3A%22saleActive%22%2C%22disabled%22%3Afalse%7D%2C%22MAX_MULTIMINT%22%3A%7B%22name%22%3A%22maxPerTransaction%22%7D%2C%22MAX_SUPPLY%22%3A%7B%22name%22%3A%22maxSupply%22%7D%2C%22mint%22%3A%7B%22parameters%22%3A%7B%22count%22%3A%22amount%22%7D%7D%7D%2C%22chainId%22%3A%220x1%22%2C%22creatorAddress%22%3A%220x90f2148dacdd843b939c2b7ed0f1fcfa23ac4ca3%22%2C%22title%22%3A%22House%20Of%20Soles%22%2C%22coverAsset%22%3A%7B%22type%22%3A%22image%22%7D%2C%22schemaVersion%22%3A%221.0.0%22%7D" width="800" height="600" frameborder="0" allowfullscreen></iframe>
+    
+    <br>
+    <br>
+    <br>
+    <br>
+    
+    <img src="https://cdn.glitch.global/1c8d5553-7a95-4e0e-9276-868063e7dd0e/logo.png?v=1699480659527" alt="Logo" width="250" height="250"> 
+    
+    <div class="let-it-snow">
+      <div class="box">
+		<ul class="minbox">
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+		</ul>
+		<ol class="maxbox">
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+		</ol>
+	</div>
+   </div>
+    
+  </div>
+  
+
+  
+  <div class="grid image-grid">
+  <div class="grid-block">
+    <div class="tile">
+      <a class="tile-link">
+        <img class="tile-img tile-img1" src="https://ipfs.io/ipfs/bafybeigmzl6v7k3von62m7kaivq3ngdacpizfk4elpjr4gdfqd3vmceuki/2.png" alt="Image">
+      </a>
+    </div>
+  </div>
+
+  <div class="grid-block">
+    <div class="tile">
+      <a class="tile-link">
+        <img class="tile-img tile-img2" src="https://ipfs.io/ipfs/bafybeigmzl6v7k3von62m7kaivq3ngdacpizfk4elpjr4gdfqd3vmceuki/3.png" alt="Image">
+      </a>
+    </div>
+  </div>
+
+  <div class="grid-block">
+    <div class="tile">
+      <a class="tile-link">
+        <img class="tile-img tile-img3" src="https://ipfs.io/ipfs/bafybeigmzl6v7k3von62m7kaivq3ngdacpizfk4elpjr4gdfqd3vmceuki/4.png" alt="Image">
+      </a>
+    </div>
+  </div>
+
+  <div class="grid-block">
+    <div class="tile">
+      <a class="tile-link">
+        <img class="tile-img tile-img4" src="https://ipfs.io/ipfs/bafybeigmzl6v7k3von62m7kaivq3ngdacpizfk4elpjr4gdfqd3vmceuki/6.png" alt="Image">
+      </a>
+    </div>
+  </div>
+
+  <div class="grid-block">
+    <div class="tile">
+      <a class="tile-link">
+        <img class="tile-img tile-img5" src="https://ipfs.io/ipfs/bafybeigmzl6v7k3von62m7kaivq3ngdacpizfk4elpjr4gdfqd3vmceuki/16.png" alt="Image">
+      </a>
+    </div>
+  </div>
+
+  <div class="grid-block">
+    <div class="tile">
+      <a class="tile-link">
+        <img class="tile-img tile-img6" src="https://ipfs.io/ipfs/bafybeigmzl6v7k3von62m7kaivq3ngdacpizfk4elpjr4gdfqd3vmceuki/7.png" alt="Image">
+      </a>
+    </div>
+  </div>
+
+  <div class="grid-block">
+    <div class="tile">
+      <a class="tile-link">
+        <img class="tile-img tile-img7" src="https://ipfs.io/ipfs/bafybeigmzl6v7k3von62m7kaivq3ngdacpizfk4elpjr4gdfqd3vmceuki/13.png" alt="Image">
+      </a>
+    </div>
+  </div>
+
+  <div class="grid-block">
+    <div class="tile">
+      <a class="tile-link">
+        <img class="tile-img tile-img8" src="https://ipfs.io/ipfs/bafybeigmzl6v7k3von62m7kaivq3ngdacpizfk4elpjr4gdfqd3vmceuki/15.png" alt="Image">
+      </a>
+    </div>
+  </div>
+
+  <div class="grid-block">
+    <div class="tile">
+      <a class="tile-link">
+        <img class="tile-img tile-img9" src="https://ipfs.io/ipfs/bafybeigmzl6v7k3von62m7kaivq3ngdacpizfk4elpjr4gdfqd3vmceuki/11.png" alt="Image">
+      </a>
+    </div>
+  </div>
+  
+  
+  <img src="https://cdn.glitch.global/1c8d5553-7a95-4e0e-9276-868063e7dd0e/logo.png?v=1699480659527" alt="Logo" width="250" height="250"> 
+</div>
+
+  <script>
+    const mintButton = document.getElementById('mintButton');
+    const mintIframe = document.getElementById('mintIframe');
+
+    mintButton.addEventListener('click', () => {
+      mintIframe.style.display = 'block';
+      mintButton.style.display = 'hidden';
+    });
+    
+    
+  </script>
+</body>
+</html>
