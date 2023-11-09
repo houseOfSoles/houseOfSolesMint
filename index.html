@@ -13,8 +13,8 @@
       background-position: center;
       margin: 0;
       padding: 0;
+      background-color: white;
       user-select: none;
-      pointer-events: none;
     }
 
     @keyframes cursor {
@@ -904,7 +904,7 @@
     <br>
     <br>
     <br>
-    <img src="https://cdn.glitch.global/1c8d5553-7a95-4e0e-9276-868063e7dd0e/logo.png?v=1699480659527" alt="Logo" width="250" height="250"> 
+<!--     <img src="https://cdn.glitch.global/1c8d5553-7a95-4e0e-9276-868063e7dd0e/logo.png?v=1699480659527" alt="Logo" width="250" height="250">  -->
     <br>
     <br>
     <br>
@@ -1052,6 +1052,9 @@
       mintButton.style.display = 'hidden';
     });
     
+    document.addEventListener('contextmenu', function (e) {
+      e.preventDefault();
+    });
     
   </script>
 </body>
